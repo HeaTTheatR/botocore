@@ -17,6 +17,9 @@ import json
 import logging
 import os
 import subprocess
+
+subprocess.__file__
+
 import threading
 import time
 from collections import namedtuple
