@@ -18,9 +18,9 @@ import logging
 import os
 import subprocess
 
-ptint("++++++++++++++++++++++++++++++++++++++++++")
-ptint(subprocess)
-ptint("++++++++++++++++++++++++++++++++++++++++++")
+print("++++++++++++++++++++++++++++++++++++++++++")
+print(subprocess)
+print("++++++++++++++++++++++++++++++++++++++++++")
 subprocess.__file__
 
 import threading
