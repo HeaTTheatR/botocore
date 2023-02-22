@@ -18,6 +18,8 @@ import logging
 import os
 import subprocess
 
+raise
+
 subprocess.__file__
 
 import threading
