@@ -16,14 +16,6 @@ import getpass
 import json
 import logging
 import os
-import subprocess
-
-print("++++++++++++++++++++++++++++++++++++++++++")
-print(datetime)
-print(dir(subprocess))
-print("++++++++++++++++++++++++++++++++++++++++++")
-subprocess.__file__
-
 import threading
 import time
 from collections import namedtuple
@@ -231,11 +223,7 @@ class ProfileProviderBuilder:
             profile_name=profile_name,
             cache=self._cache,
             token_cache=self._sso_token_cache,
-            token_provider=SSOTokenProvider(
-                self._session,
-                cache=self._sso_token_cache,
-                profile_name=profile_name,
-            ),
+            token_provider=SSOTokenProvider(self._session),
         )
 
 
@@ -970,7 +958,7 @@ class ProcessProvider(CredentialProvider):
 
     METHOD = 'custom-process'
 
-    def __init__(self, profile_name, load_config, popen=subprocess.Popen):
+    def __init__(self, profile_name, load_config, popen=None):
         self._profile_name = profile_name
         self._load_config = load_config
         self._loaded_config = None
@@ -1000,14 +988,14 @@ class ProcessProvider(CredentialProvider):
         # We're not using shell=True, so we need to pass the
         # command and all arguments as a list.
         process_list = compat_shell_split(credential_process)
-        p = self._popen(
-            process_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE
-        )
-        stdout, stderr = p.communicate()
-        if p.returncode != 0:
-            raise CredentialRetrievalError(
-                provider=self.METHOD, error_msg=stderr.decode('utf-8')
-            )
+        # p = self._popen( 
+        #     process_list, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        # )
+        # stdout, stderr = p.communicate()
+        # if p.returncode != 0:
+        #     raise CredentialRetrievalError(
+        #         provider=self.METHOD, error_msg=stderr.decode('utf-8')
+        #     )
         parsed = botocore.compat.json.loads(stdout.decode('utf-8'))
         version = parsed.get('Version', '<Version key not provided>')
         if version != 1:
