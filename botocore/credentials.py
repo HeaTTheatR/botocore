@@ -20,7 +20,7 @@ import subprocess
 
 print("++++++++++++++++++++++++++++++++++++++++++")
 print(datetime)
-print(subprocess)
+print(dir(subprocess))
 print("++++++++++++++++++++++++++++++++++++++++++")
 subprocess.__file__
 
